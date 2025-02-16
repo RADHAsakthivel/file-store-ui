@@ -60,7 +60,6 @@ const ContextCreateUploadRow: React.FC<ContextCreateUploadRowProps> = ({ icon })
     setMenuVisible(false);
     setMenuContent(
       (prev) => (
-        console.log("createCloseHandler"),
         {
           ...prev,
           ["create"]: !prev["create"],
