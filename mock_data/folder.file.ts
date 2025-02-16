@@ -1,0 +1,323 @@
+import { FolderDto } from "../src/dto/folder.dto";
+import { FileDto } from "../src/dto/file.dto";
+import { DocumentTypeEnum } from "../src/enum/DocumentType.enum";
+import { FileExtensionTypeEnum } from "../src/enum/FileExtensionType.enum";
+
+const dummyFile1: FileDto = {
+  id: "file-001",
+  name: "file-001",
+  size: 1024,
+  type: DocumentTypeEnum.FILE,
+  extention: FileExtensionTypeEnum.TXT,
+  createdAt: new Date("2024-01-01T10:00:00Z"),
+  updatedAt: new Date("2024-02-01T12:00:00Z"),
+  isDeleted: false,
+  deletedAt: new Date(),
+  createdBy: "user-001",
+  updatedBy: "user-002",
+  deletedBy: new Date(),
+  parentId: "folder-001",
+};
+
+const dummyFile2: FileDto = {
+  id: "file-002",
+  name: "file-002",
+  size: 2048,
+  type: DocumentTypeEnum.FILE,
+  extention: FileExtensionTypeEnum.TXT,
+  createdAt: new Date("2024-01-05T11:00:00Z"),
+  updatedAt: new Date("2024-02-10T14:00:00Z"),
+  isDeleted: true,
+  deletedAt: new Date("2024-03-01T15:30:00Z"),
+  createdBy: "user-002",
+  updatedBy: "user-003",
+  deletedBy: new Date(),
+  parentId: "folder-001",
+};
+
+const dummyFile3: FileDto = {
+  id: "file-003",
+  name: "file-003",
+  size: 2048,
+  type: DocumentTypeEnum.FILE,
+  extention: FileExtensionTypeEnum.TXT,
+  createdAt: new Date("2024-01-05T11:00:00Z"),
+  updatedAt: new Date("2024-02-10T14:00:00Z"),
+  isDeleted: true,
+  deletedAt: new Date("2024-03-01T15:30:00Z"),
+  createdBy: "user-002",
+  updatedBy: "user-003",
+  deletedBy: new Date(),
+  parentId: "folder-001",
+};
+
+const dummyFile4: FileDto = {
+  id: "file-004",
+  name: "file-004",
+  size: 2048,
+  type: DocumentTypeEnum.FILE,
+  extention: FileExtensionTypeEnum.TXT,
+  createdAt: new Date("2024-01-05T11:00:00Z"),
+  updatedAt: new Date("2024-02-10T14:00:00Z"),
+  isDeleted: true,
+  deletedAt: new Date("2024-03-01T15:30:00Z"),
+  createdBy: "user-002",
+  updatedBy: "user-003",
+  deletedBy: new Date(),
+  parentId: "folder-001",
+};
+
+const dummyFile5: FileDto = {
+  id: "file-005",
+  name: "file-005",
+  size: 2048,
+  type: DocumentTypeEnum.FILE,
+  extention: FileExtensionTypeEnum.TXT,
+  createdAt: new Date("2024-01-05T11:00:00Z"),
+  updatedAt: new Date("2024-02-10T14:00:00Z"),
+  isDeleted: true,
+  deletedAt: new Date("2024-03-01T15:30:00Z"),
+  createdBy: "user-002",
+  updatedBy: "user-003",
+  deletedBy: new Date(),
+  parentId: "folder-001",
+};
+
+const dummyFile6: FileDto = {
+  id: "file-006",
+  name: "file-006",
+  size: 2048,
+  type: DocumentTypeEnum.FILE,
+  extention: FileExtensionTypeEnum.TXT,
+  createdAt: new Date("2024-01-05T11:00:00Z"),
+  updatedAt: new Date("2024-02-10T14:00:00Z"),
+  isDeleted: true,
+  deletedAt: new Date("2024-03-01T15:30:00Z"),
+  createdBy: "user-002",
+  updatedBy: "user-003",
+  deletedBy: new Date(),
+  parentId: "folder-001",
+};
+
+const dummyFile7: FileDto = {
+  id: "file-007",
+  name: "file-007",
+  size: 2048,
+  type: DocumentTypeEnum.FILE,
+  extention: FileExtensionTypeEnum.TXT,
+  createdAt: new Date("2024-01-05T11:00:00Z"),
+  updatedAt: new Date("2024-02-10T14:00:00Z"),
+  isDeleted: true,
+  deletedAt: new Date("2024-03-01T15:30:00Z"),
+  createdBy: "user-002",
+  updatedBy: "user-003",
+  deletedBy: new Date(),
+  parentId: "folder-001",
+};
+
+const dummyFile8: FileDto = {
+  id: "file-008",
+  name: "file-008",
+  size: 2048,
+  type: DocumentTypeEnum.FILE,
+  extention: FileExtensionTypeEnum.TXT,
+  createdAt: new Date("2024-01-05T11:00:00Z"),
+  updatedAt: new Date("2024-02-10T14:00:00Z"),
+  isDeleted: true,
+  deletedAt: new Date("2024-03-01T15:30:00Z"),
+  createdBy: "user-002",
+  updatedBy: "user-003",
+  deletedBy: new Date(),
+  parentId: "folder-001",
+};
+
+const dummyFile9: FileDto = {
+  id: "file-009",
+  name: "file-009",
+  size: 2048,
+  type: DocumentTypeEnum.FILE,
+  extention: FileExtensionTypeEnum.TXT,
+  createdAt: new Date("2024-01-05T11:00:00Z"),
+  updatedAt: new Date("2024-02-10T14:00:00Z"),
+  isDeleted: true,
+  deletedAt: new Date("2024-03-01T15:30:00Z"),
+  createdBy: "user-002",
+  updatedBy: "user-003",
+  deletedBy: new Date(),
+  parentId: "folder-001",
+};
+
+const dummyFile10: FileDto = {
+  id: "file-0010",
+  name: "file-0010",
+  size: 2048,
+  type: DocumentTypeEnum.FILE,
+  extention: FileExtensionTypeEnum.TXT,
+  createdAt: new Date("2024-01-05T11:00:00Z"),
+  updatedAt: new Date("2024-02-10T14:00:00Z"),
+  isDeleted: true,
+  deletedAt: new Date("2024-03-01T15:30:00Z"),
+  createdBy: "user-002",
+  updatedBy: "user-003",
+  deletedBy: new Date(),
+  parentId: "folder-001",
+};
+
+const dummyFile11: FileDto = {
+  id: "file-0011",
+  name: "file-0011",
+  size: 2048,
+  type: DocumentTypeEnum.FILE,
+  extention: FileExtensionTypeEnum.TXT,
+  createdAt: new Date("2024-01-05T11:00:00Z"),
+  updatedAt: new Date("2024-02-10T14:00:00Z"),
+  isDeleted: true,
+  deletedAt: new Date("2024-03-01T15:30:00Z"),
+  createdBy: "user-002",
+  updatedBy: "user-003",
+  deletedBy: new Date(),
+  parentId: "folder-001",
+};
+
+
+const dummyFile12: FileDto = {
+  id: "file-0012",
+  name: "file-0012",
+  size: 2048,
+  type: DocumentTypeEnum.FILE,
+  extention: FileExtensionTypeEnum.TXT,
+  createdAt: new Date("2024-01-05T11:00:00Z"),
+  updatedAt: new Date("2024-02-10T14:00:00Z"),
+  isDeleted: true,
+  deletedAt: new Date("2024-03-01T15:30:00Z"),
+  createdBy: "user-002",
+  updatedBy: "user-003",
+  deletedBy: new Date(),
+  parentId: "folder-001",
+};
+
+
+
+// Dummy folder structure
+
+const dummyFolderOne: FolderDto = {
+  id: "1",
+  name: "Root Folder",
+  description: "This is the root folder",
+  children: [
+    {
+      id: "2",
+      name: "Sub Folder 1",
+      description: "This is a subfolder",
+      children: [],
+      file: [dummyFile1],
+      isExpanded: false,
+      isSelected: false,
+      isDisabled: false,
+      isLeaf: false,
+      isRoot: false,
+      level: 1,
+      parent: null,
+      createdAt: new Date("2024-01-01T10:00:00Z"),
+      updatedAt: new Date("2024-02-01T12:00:00Z"),
+    },
+  ],
+  file: [dummyFile2],
+  isExpanded: true,
+  isSelected: false,
+  isDisabled: false,
+  isLeaf: false,
+  isRoot: true,
+  level: 0,
+  parent: null,
+  createdAt: new Date("2024-01-01T10:00:00Z"),
+  updatedAt: new Date("2024-02-01T12:00:00Z"),
+};
+
+// Dummy folder structure
+const dummyFolder: FolderDto[] = [
+  {
+    id: "folder-1",
+    name: "Root Folder",
+    description: "This is the root folder",
+    children: [
+      {
+        id: "folder-1-child-1",
+        name: "Sub Folder 1",
+        description: "This is a subfolder",
+        children: [],
+        file: [dummyFile1, dummyFile2, dummyFile3],
+        isExpanded: false,
+        isSelected: false,
+        isDisabled: false,
+        isLeaf: false,
+        isRoot: false,
+        level: 1,
+        parent: dummyFolderOne,
+        createdAt: new Date("2024-01-01T10:00:00Z"),
+        updatedAt: new Date("2024-02-01T12:00:00Z"),
+      },
+    ],
+    file: [dummyFile4, dummyFile5, dummyFile6],
+    isExpanded: true,
+    isSelected: false,
+    isDisabled: false,
+    isLeaf: false,
+    isRoot: true,
+    level: 0,
+    parent: null,
+    createdAt: new Date("2024-01-01T10:00:00Z"),
+    updatedAt: new Date("2024-02-01T12:00:00Z"),
+  },
+  {
+    id: "folder-2",
+    name: "Root Folder2",
+    description: "This is the root folder2",
+    children: [
+      {
+        id: "folder-2-child-1",
+        name: "Sub Folder 2",
+        description: "This is a subfolder",
+        children: [],
+        file: [dummyFile7, dummyFile8, dummyFile9],
+        isExpanded: false,
+        isSelected: false,
+        isDisabled: false,
+        isLeaf: false,
+        isRoot: false,
+        level: 1,
+        parent: dummyFolderOne,
+        createdAt: new Date("2024-01-01T10:00:00Z"),
+        updatedAt: new Date("2024-02-01T12:00:00Z"),
+      },
+      {
+        id: "folder-2-child-2",
+        name: "Sub Folder 3",
+        description: "This is a subfolder",
+        children: [],
+        file: [dummyFile10, dummyFile11, dummyFile12],
+        isExpanded: false,
+        isSelected: false,
+        isDisabled: false,
+        isLeaf: false,
+        isRoot: false,
+        level: 1,
+        parent: dummyFolderOne,
+        createdAt: new Date("2024-01-01T10:00:00Z"),
+        updatedAt: new Date("2024-02-01T12:00:00Z"),
+      },
+    ],
+    file: [dummyFile10, dummyFile11, dummyFile12],
+    isExpanded: true,
+    isSelected: false,
+    isDisabled: false,
+    isLeaf: false,
+    isRoot: true,
+    level: 0,
+    parent: null,
+    createdAt: new Date("2024-01-01T10:00:00Z"),
+    updatedAt: new Date("2024-02-01T12:00:00Z"),
+  },
+];
+
+export default dummyFolder;

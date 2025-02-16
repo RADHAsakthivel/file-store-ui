@@ -1,0 +1,51 @@
+components:
+    Head:
+        BrudGrum,
+        Context:
+            Funnel,
+            Add
+    FolderExplore:
+        Header,
+        List-SizeIndicator:
+            Icon,
+            Name,
+            Size
+        Explorer:
+            List-Folder:
+                List-Document
+    Aside:
+        List-Logo,
+        List-Setting,
+        Footer-Down-User
+    Table:
+        Heading:
+            List-Cell
+        Row:
+            List-Cell
+            Menu-Icon-Cell
+    Menu:
+        List-Content: (reusable in create)
+            Icon (optional),
+            Name
+    Model:
+        Model-Header,
+            <Child>,
+        Model-Footer
+    Model-Header:
+        Title,
+        Clear-button (optional ),
+        Close-button
+    Model-Footer:
+        Button-One,
+        Button-Two( Optional ),
+    Create-Folder-Model:
+        Model:
+            Name-Input ( as child )
+            Description-Input ( as child )
+    Create-Folder-Model:
+        Model:
+            Browse-Document ( as child )
+            ProgressBar ( conditional )
+
+    
+    
