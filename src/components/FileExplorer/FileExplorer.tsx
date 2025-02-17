@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { Indicators } from "../Indicators";
 import { AccordionFactory } from "../Accordion";
 import {AccordionFactoryEnum} from "../../enum/AccordionFactory.enum";
-import dummyFolder from "../../../mock_data/folder.file";
 
 interface FileExplorerProps {
   title: string;
@@ -37,7 +36,7 @@ const FileExplorer = ({ title }: FileExplorerProps) => {
       <H2>{title}</H2>
       <Indicators />
       <AccordionWarpper>
-        <AccordionFactory accordionType={AccordionFactoryEnum.RECURSIVE_ACCORDION} data={dummyFolder}/>
+        <AccordionFactory accordionType={AccordionFactoryEnum.RECURSIVE_ACCORDION} />
       </AccordionWarpper>
     </Section>
   );

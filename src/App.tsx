@@ -3,7 +3,6 @@ import Nav from "./components/Nav/Nav";
 import FileExplorer from "./components/FileExplorer/FileExplorer";
 import styled from "styled-components";
 import Main from "./components/Main/Main";
-import { AccordionProvider } from "./stateManagement";
 import { useEffect } from "react";
 import { getFolders } from "../service";
 import { useAccordion } from "./stateManagement";
@@ -15,7 +14,7 @@ const Div = styled.div`
 `;
 
 function App() {
-  const { apiData, setAccoridionsData }: AccordionContextProps = useAccordion();
+  const { setAccoridionsData }: AccordionContextProps = useAccordion();
 
   useEffect(() => {
     getData();

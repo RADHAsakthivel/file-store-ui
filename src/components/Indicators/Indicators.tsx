@@ -4,7 +4,6 @@ import { Folder } from "@styled-icons/boxicons-regular";
 import { FileEmpty } from "@styled-icons/icomoon";
 import {useAccordion} from "../../stateManagement";
 import AccordionContextProps from "../../interfaces/AccordionContextProps"
-import {FolderDtoClass} from "../../dto/folder.dto"
 import {getTotalCount, getFolderCount} from "../../../Helper"
 
 const IndicatorsDiv = styled.div`

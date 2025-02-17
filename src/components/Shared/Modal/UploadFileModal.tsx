@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Modal from "./Modal";
 import { upLoadFile, getFolders } from "../../../../service";
-import { FileDto, FileDtoClass } from "../../../dto/file.dto";
+import { FileDtoClass } from "../../../dto/file.dto";
 import { FolderDto } from "../../../dto/folder.dto";
 import { FileExtensionTypeEnum } from "../../../enum/FileExtensionType.enum";
 import { useAccordion } from "../../../stateManagement";

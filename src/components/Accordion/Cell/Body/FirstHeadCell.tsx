@@ -5,7 +5,6 @@ import { CaretDownFill } from "@styled-icons/bootstrap";
 import { Folder } from "@styled-icons/boxicons-regular";
 import { File } from "@styled-icons/boxicons-regular/File";
 import styled from "styled-components";
-import { PSmall } from "../../../Shared/P";
 
 interface FirstHeadCellProps {
   id: string;
@@ -42,7 +41,7 @@ const FirstHeadCell: React.FC<FirstHeadCellProps> = ({
   toggleExpand,
 }: FirstHeadCellProps) => {
 
-
+  name;
   return (
     <TableCell>
       {isFolder && (

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Modal from "./Modal";
-import {getQueryData, healthService } from "../../../../service"
+import {getQueryData } from "../../../../service"
 import { useAccordion } from "../../../stateManagement";
 import AccordionContextProps from "../../../interfaces/AccordionContextProps";
 import {FilterState} from "../../../dto/filterDto"
