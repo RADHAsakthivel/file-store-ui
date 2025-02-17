@@ -5,17 +5,17 @@ interface PLargeProps {
   otherProps?: string;
 }
 
-const P = styled.p<{ otherStyles?: string }>`
+const P = styled.p<{ otherstyles?: string }>`
   font-family: Inter;
   font-weight: 600;
   font-size: 20px;
   line-height: 24.2px;
   letter-spacing: 0%;
-${(props) => props?.otherStyles}
+${(props) => props?.otherstyles}
 `;
 
 export const PLarge = ({ text, otherProps }: PLargeProps) => {
-  return <P otherStyles={otherProps}>{text}</P>;
+  return <P otherstyles={otherProps || ""}>{text}</P>;
 };
 
 export default PLarge;

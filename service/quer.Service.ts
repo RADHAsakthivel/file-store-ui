@@ -1,9 +1,11 @@
 import axios from "axios";
+import { FilterState } from "../src/dto/filterDto";
 
-export const getFolders = async () => {
+export const getQueryData = async (params: FilterState) => {
   try {
     const response = await axios.get(
-      import.meta.env.VITE_GET_FOLDERS_API
+      import.meta.env.VITE_GET_QUERY_FOLDERS_API,
+      {params}
     );
     return response;
   } catch (e) {

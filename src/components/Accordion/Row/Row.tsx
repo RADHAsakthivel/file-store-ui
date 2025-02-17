@@ -4,31 +4,32 @@ import { FolderDto } from "../../../dto/folder.dto";
 import { FileDto } from "../../../dto/file.dto";
 import MoreOptionCell from "../Cell/Body/MoreOptionCell";
 import { DateCell, FirstHeadCell, TextCell } from "../Cell/Body";
+import {PSmall} from "../../Shared/P"
 
-const Row = styled.div<{ rowStyles?: string }>`
+const Row = styled.div<{ rowstyles?: string }>`
   display: grid;
-  grid-template-columns: 15% 25% 25% 25% 10%;
-  align-items: center;
-  justify-content: space-between;
+  grid-template-columns: 8% 20% 20% 20% 20% 10%;
   padding-block: 8px;
   padding-left: 5px;
-  ${({ rowStyles }) => rowStyles}
+
+  &:hover{
+    background: #A9B5DF4D;
+  }
+  ${({ rowstyles }) => rowstyles}
 `;
 
 const TableRow: React.FC<{
   folderItem?: FolderDto;
   fileItem?: FileDto;
-  level: number;
   expanded: Set<string>;
   toggleExpand: (id: string) => void;
   otherStyles?: string;
-}> = ({ folderItem, fileItem, level, expanded, toggleExpand, otherStyles }) => {
-  const padding = level * 20 ? level * 20 : 5;
-  const rowStyles = `${otherStyles} padding-left: ${padding}px;`;
+}> = ({ folderItem, fileItem, expanded, toggleExpand, otherStyles }) => {
+  const rowStyles = `${otherStyles}`;
   return (
     <>
       {folderItem && (
-        <Row rowStyles={rowStyles}>
+        <Row rowstyles={rowStyles}>
           <FirstHeadCell
             id={folderItem?._id}
             name={folderItem?.name}
@@ -36,6 +37,7 @@ const TableRow: React.FC<{
             isFolder={true}
             toggleExpand={toggleExpand}
           />
+          <PSmall text={folderItem?.name} otherStyle="font-weight: 600 !important;" />
           <TextCell description={folderItem?.description || "---"} />
           <DateCell date={folderItem?.createdAt} />
           <DateCell date={folderItem?.updatedAt} />
@@ -43,7 +45,7 @@ const TableRow: React.FC<{
         </Row>
       )}
       {fileItem && (
-        <Row rowStyles={rowStyles}>
+        <Row rowstyles={rowStyles}>
           <FirstHeadCell
             id={fileItem?._id}
             name={fileItem?.name}
@@ -51,6 +53,7 @@ const TableRow: React.FC<{
             isFolder={false}
             toggleExpand={toggleExpand}
           />
+          <PSmall text={fileItem?.name} otherStyle="font-weight: 600 !important;" />
           <TextCell description={"---"} />
           <DateCell date={fileItem?.createdAt} />
           <DateCell date={fileItem?.updatedAt} />

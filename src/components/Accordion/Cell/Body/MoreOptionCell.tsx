@@ -4,16 +4,28 @@ import { MoreVertical } from "@styled-icons/feather/MoreVertical";
 import { Menu } from "../../../Shared/Menu";
 import { FolderDto } from "../../../../dto/folder.dto";
 import { FileDto } from "../../../../dto/file.dto";
+import styled from "styled-components";
 
 interface MoreOptionCellProps{
   currentFolderData? : FolderDto | undefined;
   currentFileData? : FileDto | undefined;
 }
 
+const StyledMoreVertical = styled(MoreVertical)`
+  height:16px;
+  width:16px;
+  cursor:pointer;
+
+  &:hover{
+    background: #9699b5;
+    border-radius: 50px;
+    padding:2px;
+  }
+`;
+
 const MoreOptionCell: React.FC<MoreOptionCellProps> = ({currentFolderData,currentFileData}:MoreOptionCellProps) => {
   const [menuVisible, setMenuVisible] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  currentFileData;
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -39,11 +51,15 @@ const MoreOptionCell: React.FC<MoreOptionCellProps> = ({currentFolderData,curren
         }}
         style={{ cursor: "pointer" }}
       >
-        <MoreVertical size={16} />
+        <StyledMoreVertical />
       </span>
 
-      {menuVisible && (
+      {menuVisible && currentFolderData && (
           <Menu ref={menuRef} onClick={(event) => event.stopPropagation()} currentFoldertData={currentFolderData}/>
+      )}
+      
+      {menuVisible && currentFileData && (
+          <Menu ref={menuRef} onClick={(event) => event.stopPropagation()} currentFileData={currentFileData}/>
       )}
     </TableCell>
   );

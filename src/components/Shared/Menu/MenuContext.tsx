@@ -22,11 +22,9 @@ const Div = styled.div<{ otherStyles?: string}>`
 export const MenuContent = ({
   text,
   style,
-  showBoarder,
   onClick,
   icon: MenuIcon,
 }: MenuProps) => {
-  showBoarder;
   return (
     <>
       <Div otherStyles={style} onClick={(e) => onClick && onClick(e)}>

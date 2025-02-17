@@ -5,17 +5,17 @@ interface PSmallProps {
   otherStyle?: string;
 }
 
-const P = styled.p<{ otherStyle?: string }>`
+const P = styled.p<{ otherstyle?: string }>`
   font-family: Inter;
   font-weight: 400;
   font-size: 13px;
   line-height: 15.73px;
   letter-spacing: 0%;
-${(props) => props?.otherStyle}
+${(props) => props?.otherstyle}
 `;
 
 export const PSmall = ({ text, otherStyle }: PSmallProps) => {
-  return <P otherStyle={otherStyle}>{text}</P>;
+  return <P otherstyle={otherStyle}>{text}</P>;
 };
 
 export default PSmall;

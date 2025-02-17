@@ -51,7 +51,6 @@ const FirstHeadCell: React.FC<FirstHeadCellProps> = ({
         </ExpandIcon>
       )}
       {isFolder ? <FolderIcon /> : <FileIcon />}
-      <PSmall text={name} otherStyle="font-weight: 600 !important;" />
     </TableCell>
   );
 };

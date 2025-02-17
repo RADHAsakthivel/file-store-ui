@@ -2,8 +2,6 @@ import axios from "axios";
 
 export const upLoadFile = async (fileData: FormData) => {
   try {
-    console.log("upLoadFile input => ", fileData.get('metadata'));
-    console.log(import.meta.env.VITE_FILE_UPLOAD_API);
     const response = await axios.post(
       import.meta.env.VITE_FILE_UPLOAD_API,
       fileData,
@@ -13,7 +11,7 @@ export const upLoadFile = async (fileData: FormData) => {
         },
       }
     );
-    console.log("upLoadFile response =>", response);
+    return response
   } catch (e) {
     console.log("got error while uploading file => ", e);
   }

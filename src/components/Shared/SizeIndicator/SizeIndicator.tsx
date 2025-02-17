@@ -22,14 +22,13 @@ const SizeIndicator = ({
   otherStyles,
 }: SizeIndicatorProps) => {
   function getSize(size: number): string {
-    return size < 900 ? (size - (size % 100)).toString() + "+" : "900+";
+    return size < 900 ? size.toString() + "" : "900+";
   }
-  otherStyles;
   return (
     <Div >
       <StyledIcon />
       <PSmall text={name} />
-      <PLarge text={getSize(size)} otherProps="margin-block:7px;" />
+      <PLarge text={getSize(size)} otherProps={otherStyles ||"margin-block:7px;"} />
     </Div>
   );
 };

@@ -6,10 +6,10 @@ import styled from "styled-components";
 import { useAccordion } from "../../../stateManagement";
 import AccordionContextProps from "../../../interfaces/AccordionContextProps";
 
-const RowWarpper = styled.div<{ otherStyle?: string }>`
+const RowWarpper = styled.div<{ otherstyle?: string }>`
   background-color: white;
   border-radius: 10px;
-  ${(props) => props?.otherStyle}
+  ${(props) => props?.otherstyle}
 `;
 
 const TableAccordion: React.FC<AccordingFactoryRequest> = ({
@@ -25,11 +25,11 @@ const TableAccordion: React.FC<AccordingFactoryRequest> = ({
     return data.children && data.children.length > 0;
   }
 
-
-  function getStyle(set: Set<String>, level: number, id: string) {
-    set;
+  // eslint-disable-next-line @typescript-eslint/no-wrapper-object-types
+  function getStyle(expanded: Set<String>, currentLevel: number, id: string) {
+    const padding = currentLevel * 20 > 0 ? currentLevel * 20 : 5;
     if (expanded.has(id)) {
-      if (level === 0) {
+      if (currentLevel === 0) {
         return `
           background: #A9B5DF4D;
           padding-top: 10px;
@@ -37,21 +37,23 @@ const TableAccordion: React.FC<AccordingFactoryRequest> = ({
           box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.2);
         `;
       } else {
-        return "border-bottom: 1px solid #ddd;";
+        return `padding-left: ${padding}px; border-bottom: 1px solid #ddd;`;
       }
+    }else{
+      return `padding-left: ${padding}px; border-bottom: 1px solid #ddd;`;
     }
   }
   return (
     <>
-      {data.map((item) => {
+      {data?.map((item) => {
         return (
-          <RowWarpper 
-          otherStyle={level == 0 ? "margin: 10px;" : ""}
+          <RowWarpper
+            otherstyle={level == 0 ? "margin: 10px;" : ""}
+            key={item._id}
           >
             <TableRow
               key={item._id}
               folderItem={item}
-              level={level}
               expanded={expanded}
               toggleExpand={toggleExpand}
               otherStyles={getStyle(expanded, level, item._id)}
@@ -65,16 +67,15 @@ const TableAccordion: React.FC<AccordingFactoryRequest> = ({
                   level={level + 1}
                 />
               ))}
-            {item.file &&
+            {!!item?.files?.length &&
               expanded.has(item._id) &&
-              item.file.map((file) => (
+              item.files.map((file) => (
                 <TableRow
                   key={file._id}
                   fileItem={file}
-                  level={level + 1}
                   expanded={expanded}
                   toggleExpand={toggleExpand}
-                  otherStyles={"border-bottom: 1px solid #ddd;"}
+                  otherStyles={getStyle(expanded, level, item._id)}
                 />
               ))}
           </RowWarpper>

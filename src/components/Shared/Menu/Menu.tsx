@@ -8,6 +8,9 @@ import styled from "styled-components";
 import { CreateFolderModal, UploadFileModal } from "../Modal";
 import { FolderDto } from "../../../dto/folder.dto";
 import { FileDto } from "../../../dto/file.dto";
+import { deleteFile, deleteFolder, getFolders } from "../../../../service";
+import { useAccordion } from "../../../stateManagement";
+import AccordionContextProps from "../../../interfaces/AccordionContextProps";
 
 interface MenuProps {
   otherStyles?: string;
@@ -51,6 +54,9 @@ const iconStyle = `
 
 const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
   ({ otherStyles, currentFoldertData, currentFileData, onClick }, ref) => {
+    const {
+      setAccoridionsData
+    }: AccordionContextProps = useAccordion();
     const [menuData, setMenuData] = React.useState({
       edit: false,
       delete: false,
@@ -66,12 +72,13 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
       }));
     };
 
-    const setDeleteHandler = (e: any) => {
+    const setDeleteHandler = (e: any, id:string) => {
       e?.stopPropagation();
       setMenuData((prev) => ({
         ...prev,
         ["delete"]: !prev["delete"],
       }));
+      deleteHandler(id);
     };
 
     const setCreateHandler = (e: any) => {
@@ -90,6 +97,16 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
       }));
     };
 
+    const deleteHandler = async (id:string) =>{
+      if(currentFoldertData){
+        await deleteFolder(id);
+      }else{
+        await deleteFile(id);
+      }
+      const data = await getFolders();
+      setAccoridionsData(data);
+    }
+
     return (
       <Menucontextdiv ref={ref} menuStyle={otherStyles} onClick={onClick}>
         <MenuContext
@@ -102,21 +119,21 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
           text="Delete"
           icon={tashIcon}
           style={iconStyle}
-          onClick={setDeleteHandler}
+          onClick={(e) => setDeleteHandler(e,currentFoldertData?._id || currentFileData?._id || "")}
         />
         <MenuContext
           text="Create Folder"
           icon={createNewFolder}
           style={iconStyle}
-          onClick={setCreateHandler}
+          onClick={(e) => setCreateHandler(e)}
         />
         <MenuContext
           text="Upload Document"
           icon={folderUpload}
           style={iconStyle}
-          onClick={setUploadHandler}
+          onClick={(e) => setUploadHandler(e)}
         />
-        {menuData.create && <CreateFolderModal onClose={setCreateHandler} />}
+        {menuData.create && <CreateFolderModal parent={currentFoldertData} onClose={setCreateHandler} />}
         {menuData.upload && (
           <UploadFileModal
             parentData={currentFoldertData}

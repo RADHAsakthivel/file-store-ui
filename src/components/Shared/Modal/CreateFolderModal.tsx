@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Modal from "./Modal";
-import { FolderDtoClass } from "../../../dto/folder.dto";
-import { createFolder } from "../../../../service";
+import { FolderDto, FolderDtoClass } from "../../../dto/folder.dto";
+import { createFolder, getFolders } from "../../../../service";
+import AccordionContextProps from "../../../interfaces/AccordionContextProps";
+import { useAccordion } from "../../../stateManagement";
 
 interface CreateFolderModalProps {
   onClose: (e: any) => void;
+  parent?:FolderDto;
 }
 
 const Overlay = styled.div`
@@ -28,11 +31,15 @@ const Input = styled.input`
   border-radius: 5px;
 `;
 
-const CreateFolderModal: React.FC<CreateFolderModalProps> = ({ onClose }) => {
+const CreateFolderModal: React.FC<CreateFolderModalProps> = ({ parent, onClose }) => {
+  
+  const {
+    setAccoridionsData,
+  }: AccordionContextProps = useAccordion();
+  
   const [folderFormData, setfolderFormData] = useState(new FolderDtoClass());
 
   const folderDataChangeHandler = (e: any): void => {
-    console.log(e);
     setfolderFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -40,12 +47,13 @@ const CreateFolderModal: React.FC<CreateFolderModalProps> = ({ onClose }) => {
   };
 
   const createFolderInRoot = async (e:any) => {
-    folderFormData.parent = null;
-    folderFormData.isRoot = true;
-    folderFormData.isDisabled = false;
-    folderFormData.isLeaf = true;
-    folderFormData.level = 0;
+    if(parent){
+      folderFormData.parent = parent._id;
+    }else{
+      folderFormData.parent = null;
+    }
     await createFolder(folderFormData);
+    setAccoridionsData(await getFolders());
     onClose(e);
   };
 

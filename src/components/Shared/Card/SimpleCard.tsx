@@ -14,14 +14,11 @@ interface SimpleCardProps {
   otherStyle?: string;
 }
 
-const Div = styled.div<{ otherStyle?: string }>`
-  grid-template-columns: 1fr 9fr auto;
-  display: grid;
-  align-items: center;
+const Div = styled.div<{ otherstyle?: string }>`
   margin-block: 1px;
-  padding-block: 10px 5px;
+  padding: 10px 0 10px 5px;
   border-bottom: 1px solid #dddddd;
-  ${( props ) => props.otherStyle}
+  ${(props) => props.otherstyle}
 `;
 
 const StyledFolder = styled(Folder)`
@@ -50,12 +47,10 @@ const SimpleCard = ({
   documentType,
   otherStyle,
   onClick,
-  isClicked
+  isClicked,
 }: SimpleCardProps) => {
-otherStyle
-
   return (
-    <Div>
+    <Div otherstyle={otherStyle}>
       {documentType == DocumentTypeEnum.FOLDER && <StyledFolder />}
       {documentType == DocumentTypeEnum.FILE && <StyledFile />}
       <PSmall text={title} />

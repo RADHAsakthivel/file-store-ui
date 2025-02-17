@@ -55,7 +55,6 @@ const ContextCreateUploadRow: React.FC<ContextCreateUploadRowProps> = ({ icon })
   }, [menuVisible]);
 
   const createCloseHandler = (e?:any) => {
-    console.log("createCloseHandler")
     e?.stopPropagation();
     setMenuVisible(false);
     setMenuContent(
@@ -69,7 +68,6 @@ const ContextCreateUploadRow: React.FC<ContextCreateUploadRowProps> = ({ icon })
   };
 
   const uploadCloseHandler = (e?:any) => {
-    console.log("uploadCloseHandler")
     e?.stopPropagation();
     setMenuVisible(false);
     setMenuContent(
@@ -80,14 +78,12 @@ const ContextCreateUploadRow: React.FC<ContextCreateUploadRowProps> = ({ icon })
         }
       )
     );
-    console.log("uploadCloseHandler2", menuContent);
   };
 
   return (
     <Div
       ref={menuRef}
       onClick={(e) => {
-        console.log("Div")
         e?.stopPropagation();
         setMenuVisible((prev) => !prev);
       }}

@@ -24,8 +24,7 @@ const AccordionFactory = ({ accordionType, data }: AccordionFactoryProps) => {
   }
 
   const Accordion = getComponent(accordionType);
-  console.log("folders => ", apiData.data.folders)
-  data = apiData.data.folders
+  data = apiData?.data?.folders
   return (
     <>
       <Accordion data={data} level={0} />

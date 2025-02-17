@@ -4,8 +4,10 @@ import FileExplorer from "./components/FileExplorer/FileExplorer";
 import styled from "styled-components";
 import Main from "./components/Main/Main";
 import { AccordionProvider } from "./stateManagement";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getFolders } from "../service";
+import { useAccordion } from "./stateManagement";
+import AccordionContextProps from "./interfaces/AccordionContextProps";
 
 const Div = styled.div`
   display: grid;
@@ -13,26 +15,23 @@ const Div = styled.div`
 `;
 
 function App() {
-  const [apiData, setApiData] = useState();
+  const { apiData, setAccoridionsData }: AccordionContextProps = useAccordion();
+
   useEffect(() => {
     getData();
   }, []);
 
   const getData = async () => {
     const response = await getFolders();
-    setApiData(response as any);
+    setAccoridionsData(response);
   };
 
   return (
-    <>
-      {apiData && <AccordionProvider apiData={apiData}>
-        <Div>
-          <Nav />
-          <FileExplorer title="Folders & Documents" />
-          <Main />
-        </Div>
-      </AccordionProvider>}
-    </>
+      <Div>
+        <Nav />
+        <FileExplorer title="Folders & Documents" />
+        <Main />
+      </Div>
   );
 }
 

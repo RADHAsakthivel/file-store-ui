@@ -5,10 +5,12 @@ import { upLoadFile, getFolders } from "../../../../service";
 import { FileDto, FileDtoClass } from "../../../dto/file.dto";
 import { FolderDto } from "../../../dto/folder.dto";
 import { FileExtensionTypeEnum } from "../../../enum/FileExtensionType.enum";
+import { useAccordion } from "../../../stateManagement";
+import AccordionContextProps from "../../../interfaces/AccordionContextProps";
 
 interface UploadFileModalProps {
   onClose: (e?: any) => void;
-  parentData? : FolderDto
+  parentData?: FolderDto;
 }
 
 const FileInput = styled.input`
@@ -36,24 +38,32 @@ const FileList = styled.div`
   font-size: 14px;
 `;
 
-const UploadFileModal: React.FC<UploadFileModalProps> = ({ onClose, parentData }) => {
+const UploadFileModal: React.FC<UploadFileModalProps> = ({
+  onClose,
+  parentData,
+}) => {
+  const { setAccoridionsData }: AccordionContextProps = useAccordion();
+
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  // const [fileFormData, setfileFormData] = useState<FileDto>(new FileDtoClass());
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       setSelectedFiles([...selectedFiles, ...Array.from(event.target.files)]);
     }
   };
-
+  
   const handleUpload = async () => {
+  
     if (selectedFiles.length > 0) {
+  
       const formData = new FormData();
       const fileFormData = new FileDtoClass();
   
       selectedFiles.forEach((file) => {
         formData.append("file", file);
         fileFormData.name = file.name;
-        fileFormData.extension = file.name.split(".").pop() || FileExtensionTypeEnum.UNKNOWN;
+        fileFormData.extension =
+          file.name.split(".").pop() || FileExtensionTypeEnum.UNKNOWN;
         fileFormData.type = file.type;
       });
   
@@ -63,30 +73,15 @@ const UploadFileModal: React.FC<UploadFileModalProps> = ({ onClose, parentData }
       } else {
         fileFormData.parentId = parentData._id;
       }
-      console.log("parentData =>",fileFormData)
-      console.log(formData);
       formData.append("metadata", JSON.stringify(fileFormData));
-      
+  
       await upLoadFile(formData);
-      // await getFolders()
-      setSelectedFiles([]);
+      const data = await getFolders();
+      setAccoridionsData(data);
+      setSelectedFiles([] as any);
       onClose();
     }
   };
-  
-
-  const getFileFormData = async () =>{
-    console.log("parentData =>",parentData)
-    const fileFormData = new FileDtoClass();
-    if(!parentData){
-      fileFormData.parentId = "root";
-      fileFormData.description = "---"
-    }else{
-      fileFormData.parentId = parentData._id;
-    }
-
-
-  }
 
   return (
     <Modal title="Upload Files" onClose={onClose} onConfirm={handleUpload}>

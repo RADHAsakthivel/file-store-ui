@@ -1,19 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 
-const TableCell = styled.div<{ cellStyle?: string }>`
+const TableCell = styled.div<{ tablestyle?: string }>`
   vertical-align: middle;
   display: flex;
   justify-content: center;
   align-items: center;
-  ${(props) => props?.cellStyle}
+  ${(props) => props?.tablestyle}
 `;
 
 const Cell: React.FC<{ children: React.ReactNode; otherStyle?: string }> = ({
   children,
   otherStyle,
 }) => {
-  return <TableCell cellStyle={otherStyle}>{children}</TableCell>;
+  return <TableCell tablestyle={otherStyle}>{children}</TableCell>;
 };
 
 export default Cell;

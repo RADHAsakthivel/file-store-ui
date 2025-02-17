@@ -1,9 +1,8 @@
 import axios from "axios";
-import { FolderDto } from "../src/dto/folder.dto";
+import { FolderDtoClass } from "../src/dto/folder.dto";
 
-export const createFolder = async (folderData: FolderDto) => {
+export const createFolder = async (folderData: FolderDtoClass) => {
   try {
-    console.log(import.meta.env.VITE_CREATE_FOLDER_API);
     const response = await axios.post(
       import.meta.env.VITE_CREATE_FOLDER_API,
       folderData,
@@ -13,7 +12,6 @@ export const createFolder = async (folderData: FolderDto) => {
         },
       }
     );
-    console.log("createFolder response =>", response);
     return response;
   } catch (e) {
     console.log("got error while uploading file => ", e);

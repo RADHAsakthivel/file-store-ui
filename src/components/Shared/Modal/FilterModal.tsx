@@ -1,16 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Modal from "./Modal";
-import {healthService } from "../../../../service"
-
+import {getQueryData, healthService } from "../../../../service"
+import { useAccordion } from "../../../stateManagement";
+import AccordionContextProps from "../../../interfaces/AccordionContextProps";
+import {FilterState} from "../../../dto/filterDto"
 interface FilterModalProps {
   onClose: (e:any) => void;
-}
-
-interface FilterState {
-  name: string;
-  description: string;
-  date: string;
 }
 
 const FilterContainer = styled.div`
@@ -27,13 +23,16 @@ const Input = styled.input`
 `;
 
 const FilterModal: React.FC<FilterModalProps> = ({ onClose }) => {
+  const {
+    setAccoridionsData
+  }: AccordionContextProps = useAccordion();
   const [filters, setFilters] = useState<FilterState>({
-    name: "",
+    folderName: "",
     description: "",
     date: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFilters((prev) => ({
       ...prev,
@@ -42,8 +41,8 @@ const FilterModal: React.FC<FilterModalProps> = ({ onClose }) => {
   };
   
   const submitHandle = async ()=>{
-    console.log(filters);
-    await healthService();
+    const data = await getQueryData(filters);
+    setAccoridionsData(data);
   }
 
   return (
@@ -52,7 +51,7 @@ const FilterModal: React.FC<FilterModalProps> = ({ onClose }) => {
         onConfirm={submitHandle} 
         confirmText="Apply">
       <FilterContainer>
-        <Input type="text" name="name" placeholder="Folder Name" value={filters.name} onChange={handleChange} />
+        <Input type="text" name="folderName" placeholder="Folder Name" value={filters.folderName} onChange={handleChange} />
         <Input type="text" name="description" placeholder="Description" value={filters.description} onChange={handleChange} />
         <Input type="date" name="date" value={filters.date} onChange={handleChange} />
       </FilterContainer>

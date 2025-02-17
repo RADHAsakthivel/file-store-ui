@@ -7,7 +7,7 @@ interface DateCellProps {
 }
 
 const DateCell: React.FC<DateCellProps> = ({ date }) => {
-  const dateString = date.toLocaleString("en-GB", { 
+  const dateString = date?.toLocaleString("en-GB", { 
     day: "2-digit", 
     month: "2-digit", 
     year: "numeric", 

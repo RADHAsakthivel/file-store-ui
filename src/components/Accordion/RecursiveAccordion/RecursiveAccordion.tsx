@@ -6,8 +6,8 @@ import AccordingFactoryRequest from "../../../dto/AccordionFactoryRequest";
 import { useAccordion } from "../../../stateManagement";
 import AccordionContextProps from "../../../interfaces/AccordionContextProps";
 
-const Div = styled.div<{ otherStyle?: string }>`
-  ${(props) => props?.otherStyle}
+const Div = styled.div<{ otherstyle?: string }>`
+  ${(props) => props?.otherstyle}
 `;
 
 const RecursiveAccordion: React.FC<AccordingFactoryRequest> = ({
@@ -19,10 +19,9 @@ const RecursiveAccordion: React.FC<AccordingFactoryRequest> = ({
     openAccordions: expanded,
     toggleAccordion: toggleExpand,
   }: AccordionContextProps = useAccordion();
-
   return (
-    <Div otherStyle={otherStyle}>
-      {data.map((folder) => (
+    <Div otherstyle={otherStyle}>
+      {data?.map((folder) => (
         <div key={folder._id}>
           <SimpleCard
             key={folder._id}
@@ -31,9 +30,12 @@ const RecursiveAccordion: React.FC<AccordingFactoryRequest> = ({
             onClick={() => {
               toggleExpand(folder._id);
             }}
-            otherStyle={
-              expanded.has(folder._id) ? "background-color: #A9B5DF4D" : ""
-            }
+            otherStyle={`
+              grid-template-columns: 1fr 9fr auto;
+              display: grid;
+              align-items: center;
+              ${expanded.has(folder._id) ? "background-color: #A9B5DF4D" : ""}
+              `}
             isClicked={expanded.has(folder._id)}
           />
           {expanded.has(folder._id) && folder.children && (
@@ -46,16 +48,21 @@ const RecursiveAccordion: React.FC<AccordingFactoryRequest> = ({
             </div>
           )}
           {expanded.has(folder._id) &&
-            folder.file &&
-            folder.file.map((file) => (
+            !!folder?.files?.length &&
+            folder.files.map((file) => (
               <SimpleCard
                 key={file._id}
-                title={file._id}
+                title={file.name}
                 documentType={file.type}
                 otherStyle={`
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
                   margin-left:1${level}px;
                   ${
-                    expanded.has(folder._id) ? "background-color: #A9B5DF4D" : ""
+                    expanded.has(folder._id)
+                      ? "background-color: #A9B5DF4D"
+                      : ""
                   }
                   `}
                 onClick={() => {}}
