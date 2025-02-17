@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Modal from "./Modal";
+import {healthService } from "../../../../service"
 
 interface FilterModalProps {
   onClose: (e:any) => void;
@@ -40,8 +41,9 @@ const FilterModal: React.FC<FilterModalProps> = ({ onClose }) => {
     }));
   };
   
-  const submitHandle = ()=>{
+  const submitHandle = async ()=>{
     console.log(filters);
+    await healthService();
   }
 
   return (

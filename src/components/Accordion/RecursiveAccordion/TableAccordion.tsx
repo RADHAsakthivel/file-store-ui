@@ -41,7 +41,6 @@ const TableAccordion: React.FC<AccordingFactoryRequest> = ({
       }
     }
   }
-
   return (
     <>
       {data.map((item) => {
@@ -50,28 +49,28 @@ const TableAccordion: React.FC<AccordingFactoryRequest> = ({
           otherStyle={level == 0 ? "margin: 10px;" : ""}
           >
             <TableRow
-              key={item.id}
-              item={item}
+              key={item._id}
+              folderItem={item}
               level={level}
               expanded={expanded}
               toggleExpand={toggleExpand}
-              otherStyles={getStyle(expanded, level, item.id)}
+              otherStyles={getStyle(expanded, level, item._id)}
             />
             {isFolder(item) &&
-              expanded.has(item.id) &&
+              expanded.has(item._id) &&
               item.children.map((child) => (
                 <TableAccordion
-                  key={child.id}
+                  key={child._id}
                   data={[child]}
                   level={level + 1}
                 />
               ))}
             {item.file &&
-              expanded.has(item.id) &&
+              expanded.has(item._id) &&
               item.file.map((file) => (
                 <TableRow
-                  key={file.id}
-                  item={file}
+                  key={file._id}
+                  fileItem={file}
                   level={level + 1}
                   expanded={expanded}
                   toggleExpand={toggleExpand}

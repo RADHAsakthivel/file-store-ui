@@ -23,20 +23,20 @@ const RecursiveAccordion: React.FC<AccordingFactoryRequest> = ({
   return (
     <Div otherStyle={otherStyle}>
       {data.map((folder) => (
-        <div key={folder.id}>
+        <div key={folder._id}>
           <SimpleCard
-            key={folder.id}
+            key={folder._id}
             title={folder.name}
             documentType={DocumentTypeEnum.FOLDER}
             onClick={() => {
-              toggleExpand(folder.id);
+              toggleExpand(folder._id);
             }}
             otherStyle={
-              expanded.has(folder.id) ? "background-color: #A9B5DF4D" : ""
+              expanded.has(folder._id) ? "background-color: #A9B5DF4D" : ""
             }
-            isClicked={expanded.has(folder.id)}
+            isClicked={expanded.has(folder._id)}
           />
-          {expanded.has(folder.id) && folder.children && (
+          {expanded.has(folder._id) && folder.children && (
             <div>
               <RecursiveAccordion
                 data={folder.children}
@@ -45,17 +45,17 @@ const RecursiveAccordion: React.FC<AccordingFactoryRequest> = ({
               />
             </div>
           )}
-          {expanded.has(folder.id) &&
+          {expanded.has(folder._id) &&
             folder.file &&
             folder.file.map((file) => (
               <SimpleCard
-                key={file.id}
-                title={file.id}
+                key={file._id}
+                title={file._id}
                 documentType={file.type}
                 otherStyle={`
                   margin-left:1${level}px;
                   ${
-                    expanded.has(folder.id) ? "background-color: #A9B5DF4D" : ""
+                    expanded.has(folder._id) ? "background-color: #A9B5DF4D" : ""
                   }
                   `}
                 onClick={() => {}}

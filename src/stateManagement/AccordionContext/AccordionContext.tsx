@@ -3,7 +3,7 @@ import AccordionContextProps from "../../interfaces/AccordionContextProps";
 
 const AccordionContext = createContext<AccordionContextProps | undefined>(undefined);
 
-export const AccordionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AccordionProvider: React.FC<{ children: React.ReactNode, apiData:any }> = ({ children, apiData }) => {
 
   
     const [openAccordions, setOpenAccordions] = useState<Set<string>>(new Set());
@@ -17,7 +17,7 @@ export const AccordionProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     };
 
   return (
-    <AccordionContext.Provider value={{ openAccordions, toggleAccordion }}>
+    <AccordionContext.Provider value={{ openAccordions, apiData, toggleAccordion }}>
       {children}
     </AccordionContext.Provider>
   );

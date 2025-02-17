@@ -6,9 +6,13 @@ import { Edit } from "@styled-icons/material/Edit";
 import MenuContext from "./MenuContext";
 import styled from "styled-components";
 import { CreateFolderModal, UploadFileModal } from "../Modal";
+import { FolderDto } from "../../../dto/folder.dto";
+import { FileDto } from "../../../dto/file.dto";
 
 interface MenuProps {
   otherStyles?: string;
+  currentFoldertData?: FolderDto;
+  currentFileData?: FileDto;
   onClick?: (e: any) => void;
 }
 
@@ -46,7 +50,7 @@ const iconStyle = `
       `;
 
 const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
-  ({ otherStyles, onClick }, ref) => {
+  ({ otherStyles, currentFoldertData, currentFileData, onClick }, ref) => {
     const [menuData, setMenuData] = React.useState({
       edit: false,
       delete: false,
@@ -54,7 +58,7 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
       upload: false,
     });
 
-    const setEditHandler = (e:any) => {
+    const setEditHandler = (e: any) => {
       e?.stopPropagation();
       setMenuData((prev) => ({
         ...prev,
@@ -62,7 +66,7 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
       }));
     };
 
-    const setDeleteHandler = (e:any) => {
+    const setDeleteHandler = (e: any) => {
       e?.stopPropagation();
       setMenuData((prev) => ({
         ...prev,
@@ -70,7 +74,7 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
       }));
     };
 
-    const setCreateHandler = (e:any) => {
+    const setCreateHandler = (e: any) => {
       e?.stopPropagation();
       setMenuData((prev) => ({
         ...prev,
@@ -78,7 +82,7 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
       }));
     };
 
-    const setUploadHandler = (e:any) => {
+    const setUploadHandler = (e: any) => {
       e?.stopPropagation();
       setMenuData((prev) => ({
         ...prev,
@@ -88,8 +92,18 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
 
     return (
       <Menucontextdiv ref={ref} menuStyle={otherStyles} onClick={onClick}>
-        <MenuContext text="Edit" icon={edit} style={iconStyle} onClick={setEditHandler}/>
-        <MenuContext text="Delete" icon={tashIcon} style={iconStyle} onClick={setDeleteHandler}/>
+        <MenuContext
+          text="Edit"
+          icon={edit}
+          style={iconStyle}
+          onClick={setEditHandler}
+        />
+        <MenuContext
+          text="Delete"
+          icon={tashIcon}
+          style={iconStyle}
+          onClick={setDeleteHandler}
+        />
         <MenuContext
           text="Create Folder"
           icon={createNewFolder}
@@ -102,14 +116,13 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
           style={iconStyle}
           onClick={setUploadHandler}
         />
-        {
-          menuData.create &&
-          <CreateFolderModal onClose={setCreateHandler} />
-        }
-        {
-          menuData.upload &&
-          <UploadFileModal onClose={setUploadHandler} />
-        }
+        {menuData.create && <CreateFolderModal onClose={setCreateHandler} />}
+        {menuData.upload && (
+          <UploadFileModal
+            parentData={currentFoldertData}
+            onClose={setUploadHandler}
+          />
+        )}
       </Menucontextdiv>
     );
   }

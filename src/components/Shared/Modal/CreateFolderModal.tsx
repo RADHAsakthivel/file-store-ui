@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Modal from "./Modal";
+import { FolderDtoClass } from "../../../dto/folder.dto";
+import { createFolder } from "../../../../service";
 
 interface CreateFolderModalProps {
   onClose: (e: any) => void;
@@ -27,34 +29,46 @@ const Input = styled.input`
 `;
 
 const CreateFolderModal: React.FC<CreateFolderModalProps> = ({ onClose }) => {
-  const [folderName, setFolderName] = useState("");
-  const [description, setDescription] = useState("");
+  const [folderFormData, setfolderFormData] = useState(new FolderDtoClass());
+
+  const folderDataChangeHandler = (e: any): void => {
+    console.log(e);
+    setfolderFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const createFolderInRoot = async (e:any) => {
+    folderFormData.parent = null;
+    folderFormData.isRoot = true;
+    folderFormData.isDisabled = false;
+    folderFormData.isLeaf = true;
+    folderFormData.level = 0;
+    await createFolder(folderFormData);
+    onClose(e);
+  };
 
   return (
     <Overlay onClick={(e) => e.stopPropagation()}>
       <Modal
         title="Create Folder"
         onClose={onClose}
-        onConfirm={() =>
-          console.log(
-            "folderName =>",
-            folderName,
-            "description =>",
-            description
-          )
-        }
+        onConfirm={createFolderInRoot}
       >
         <Input
           type="text"
           placeholder="Folder name"
-          value={folderName}
-          onChange={(e) => setFolderName(e.target.value)}
+          name={"name"}
+          value={folderFormData.name}
+          onChange={folderDataChangeHandler}
         />
         <Input
           type="text"
           placeholder="Folder description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          name="description"
+          value={folderFormData.description}
+          onChange={folderDataChangeHandler}
         />
       </Modal>
     </Overlay>

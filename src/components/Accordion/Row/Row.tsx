@@ -16,30 +16,47 @@ const Row = styled.div<{ rowStyles?: string }>`
 `;
 
 const TableRow: React.FC<{
-  item: FolderDto | FileDto;
+  folderItem?: FolderDto;
+  fileItem?: FileDto;
   level: number;
   expanded: Set<string>;
   toggleExpand: (id: string) => void;
   otherStyles?: string;
-}> = ({ item, level, expanded, toggleExpand, otherStyles }) => {
-  const isFolder = (item as FolderDto).children !== undefined;
-  const padding = level*20 ? level*20 : 5;
-  const rowStyles= `${otherStyles} padding-left: ${padding}px;`
+}> = ({ folderItem, fileItem, level, expanded, toggleExpand, otherStyles }) => {
+  const padding = level * 20 ? level * 20 : 5;
+  const rowStyles = `${otherStyles} padding-left: ${padding}px;`;
   return (
     <>
-      <Row rowStyles={rowStyles}>
-        <FirstHeadCell
-          id={item.id}
-          name={item.name}
-          isExpanded={expanded.has(item.id)}
-          isFolder={isFolder}
-          toggleExpand={toggleExpand}
-        />
-        <TextCell description={item?.description || "---"} />
-        <DateCell date={item.createdAt} />
-        <DateCell date={item.updatedAt} />
-        <MoreOptionCell />
-      </Row>
+      {folderItem && (
+        <Row rowStyles={rowStyles}>
+          <FirstHeadCell
+            id={folderItem?._id}
+            name={folderItem?.name}
+            isExpanded={expanded.has(folderItem?._id)}
+            isFolder={true}
+            toggleExpand={toggleExpand}
+          />
+          <TextCell description={folderItem?.description || "---"} />
+          <DateCell date={folderItem?.createdAt} />
+          <DateCell date={folderItem?.updatedAt} />
+          <MoreOptionCell currentFolderData={folderItem} />
+        </Row>
+      )}
+      {fileItem && (
+        <Row rowStyles={rowStyles}>
+          <FirstHeadCell
+            id={fileItem?._id}
+            name={fileItem?.name}
+            isExpanded={expanded.has(fileItem?._id)}
+            isFolder={false}
+            toggleExpand={toggleExpand}
+          />
+          <TextCell description={"---"} />
+          <DateCell date={fileItem?.createdAt} />
+          <DateCell date={fileItem?.updatedAt} />
+          <MoreOptionCell currentFileData={fileItem} />
+        </Row>
+      )}
     </>
   );
 };
