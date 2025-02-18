@@ -10,3 +10,4 @@ export const getFolders = async () => {
     console.log("got error while uploading file => ", e);
   }
 };
+
